@@ -51,10 +51,10 @@ public class FilterTest {
 
     @Test
     @ExtendWith(ReportPortalExtension.class)
-    public void successLogin() {
+    void successLogin() {
         LoginPage loginPage;
         loginPage = new LoginPage(driver).open();
-        assertTrue(loginPage.isVisible());
+        assertTrue(loginPage.isSubmitButtonVisible());
         MainPage loginResultsPage = loginPage.login(
                 repo.getBy("default.user.name"),
                 repo.getBy("default.user.password"));

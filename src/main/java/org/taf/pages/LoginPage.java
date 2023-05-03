@@ -52,7 +52,7 @@ public class LoginPage extends BasePage {
         return submit();
     }
 
-    public Boolean isVisible() {
+    public Boolean isSubmitButtonVisible() {
         WebDriverWait wait = new WebDriverWait(driver,
                 Duration.ofSeconds(Long.parseLong(repo.getBy("time.wait.locator"))));
         return wait.until(ExpectedConditions.elementToBeClickable(getSubmitButton())).isDisplayed();
