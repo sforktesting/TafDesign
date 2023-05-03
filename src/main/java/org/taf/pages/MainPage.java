@@ -15,7 +15,9 @@ public class MainPage extends BasePage {
     }
 
     public String signedInSuccessfullyText() {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(Long.parseLong(repo.getBy("time.wait.locator"))));
-        return wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(SIGNED_IN_SUCCESSFULLY))).getText();
+        WebDriverWait wait = new WebDriverWait(driver,
+                Duration.ofSeconds(Long.parseLong(repo.getBy("time.wait.locator"))));
+        return wait.until(ExpectedConditions.presenceOfElementLocated(
+                By.cssSelector(SIGNED_IN_SUCCESSFULLY))).getText();
     }
 }
