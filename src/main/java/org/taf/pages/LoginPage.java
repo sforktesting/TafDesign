@@ -57,5 +57,4 @@ public class LoginPage extends BasePage {
                 Duration.ofSeconds(Long.parseLong(repo.getBy("time.wait.locator"))));
         return wait.until(ExpectedConditions.elementToBeClickable(getSubmitButton())).isDisplayed();
     }
-
 }
