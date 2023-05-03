@@ -22,9 +22,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @ExtendWith(SeleniumJupiter.class)
 public class FilterTest {
 
-    WebDriver driver;
     private static RepositoryParser repo;
     private static Logger LOGGER = null;
+    WebDriver driver;
 
     @BeforeAll
     public static void setLogger() {
@@ -51,12 +51,13 @@ public class FilterTest {
 
     @Test
     @ExtendWith(ReportPortalExtension.class)
-    public void successLogin()
-    {
+    public void successLogin() {
         LoginPage loginPage;
         loginPage = new LoginPage(driver).open();
         assertTrue(loginPage.isVisible());
-        MainPage loginResultsPage = loginPage.login("default", "default23");
-        assertEquals(loginResultsPage.signedInSuccessfullyText(), repo.getBy("signed.in.successfully"));
+        MainPage loginResultsPage = loginPage.login(
+                repo.getBy("default.user.name"),
+                repo.getBy("default.user.password"));
+        assertEquals(repo.getBy("signed.in.successfully"), loginResultsPage.signedInSuccessfullyText());
     }
 }
