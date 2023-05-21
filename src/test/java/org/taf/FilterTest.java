@@ -17,16 +17,15 @@ import org.taf.user.UserInfo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SeleniumJupiter.class)
-public class FilterTest {
+class FilterTest {
 
-    private static Logger LOGGER = null;
+    private static final Logger LOGGER = LogManager.getLogger();
     private static UserInfo defaultUser;
     private LoginPage loginPage;
     private MainPage mainPage;
 
     @BeforeAll
     public static void setLogger() {
-        LOGGER = LogManager.getLogger();
         defaultUser = new UserInfo();
         WebDriverManager.chromedriver().setup();
     }
