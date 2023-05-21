@@ -1,23 +1,36 @@
 package org.taf.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class MainPage extends BasePage {
-    public static final String SIGNED_IN_SUCCESSFULLY = "#notification-root p";
+
+    @FindBy(css = "img[alt='avatar']")
+    protected WebElement userBlockImage;
+
+    @FindBy(css = "div.userBlock__menu--2Y0xl > div.userBlock__menu-item--3VBsZ")
+    protected WebElement userBlockItemLogout;
 
     public MainPage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver,this);
     }
 
-    public String signedInSuccessfullyText() {
-        WebDriverWait wait = new WebDriverWait(driver,
-                Duration.ofSeconds(Long.parseLong(repo.getBy("time.wait.locator"))));
-        return wait.until(ExpectedConditions.presenceOfElementLocated(
-                By.cssSelector(SIGNED_IN_SUCCESSFULLY))).getText();
+    public String getSignedInSuccessfullyText() {
+        return getTextOfElement(notificationMessageElement);
+    }
+
+    public LoginPage logOut() {
+        isElementInvisible(notificationMessageElement);
+        userBlockImage.click();
+        isElementDisplayed(userBlockItemLogout);
+        userBlockItemLogout.click();
+        return new LoginPage(driver);
+    }
+
+    public SideBar getSideBar() {
+        return new SideBar(driver);
     }
 }
