@@ -12,39 +12,35 @@ import org.taf.pages.Filters;
 import org.taf.pages.Launches;
 import org.taf.pages.LoginPage;
 import org.taf.pages.MainPage;
-import org.taf.utils.PropertiesReader;
+import org.taf.user.UserInfo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SeleniumJupiter.class)
 public class FilterTest {
 
-    private static PropertiesReader repo;
     private static Logger LOGGER = null;
-
+    private static UserInfo defaultUser;
     private LoginPage loginPage;
     private MainPage mainPage;
 
     @BeforeAll
     public static void setLogger() {
         LOGGER = LogManager.getLogger();
-        repo = new PropertiesReader("src/main/resources/Locators.properties");
+        defaultUser = new UserInfo();
         WebDriverManager.chromedriver().setup();
     }
 
     @BeforeEach
     void beforeEach(WebDriver driver) {
         LOGGER.info("Starting...");
-        String url = repo.getBy("url");
         driver.manage().window().maximize();
-        driver.navigate().to(url);
+        driver.navigate().to(defaultUser.getBaseUrl());
         LOGGER.info("Started");
 
         loginPage = new LoginPage(driver);
-        mainPage = loginPage.login(
-                repo.getBy("default.user.name"),
-                repo.getBy("default.user.password"));
-        assertEquals(repo.getBy("signed.in.successfully"), mainPage.getSignedInSuccessfullyText());
+        mainPage = loginPage.login(defaultUser.getUserName(), defaultUser.getPassword());
+        assertEquals(defaultUser.getSignedInText(), mainPage.getSignedInSuccessfullyText());
         LOGGER.info("Logged In");
     }
 
@@ -52,7 +48,7 @@ public class FilterTest {
     public void tearDown() {
         LOGGER.info("Ending...");
         loginPage = mainPage.logOut();
-        assertEquals(repo.getBy("logged.out.successfully"), loginPage.getSignedOutSuccessfullyText());
+        assertEquals(defaultUser.getSignedOutText(), loginPage.getSignedOutSuccessfullyText());
         LOGGER.info("Logged Out");
     }
 
@@ -65,6 +61,7 @@ public class FilterTest {
         assertEquals("FILTERS", filters.getHeaderText());
 
     }
+
     @Test
     @ExtendWith(ReportPortalExtension.class)
     @DisplayName("Verify Launches page")

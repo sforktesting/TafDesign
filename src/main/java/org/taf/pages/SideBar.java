@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class SideBar extends BasePage{
+public class SideBar extends BasePage {
 
     @FindBy(css = "a[href*='launches']")
     WebElement launchesLink;
@@ -15,7 +15,7 @@ public class SideBar extends BasePage{
 
     public SideBar(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
+        PageFactory.initElements(driver, this);
     }
 
     public Filters goToFilters() {
