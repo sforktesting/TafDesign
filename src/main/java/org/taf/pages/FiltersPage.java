@@ -5,11 +5,11 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class Filters extends MainPage {
+public class FiltersPage extends MainPage {
     @FindBy(css = "#app ul li span")
     private WebElement headerText;
 
-    public Filters(WebDriver driver) {
+    public FiltersPage(WebDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
     }

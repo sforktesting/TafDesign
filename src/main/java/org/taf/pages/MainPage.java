@@ -30,7 +30,7 @@ public class MainPage extends BasePage {
         return new LoginPage(driver);
     }
 
-    public SideBar getSideBar() {
-        return new SideBar(driver);
+    public SideBarPageComponent getSideBar() {
+        return new SideBarPageComponent(driver);
     }
 }
