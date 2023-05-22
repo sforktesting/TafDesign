@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+
+    <!-- Logging Properties -->
+    <Properties>
+        <Property name="LOG_PATTERN">%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n</Property>
+    </Properties>
+
+    <Appenders>
+
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT" follow="true">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </Console>
+
+        <!-- File Appenders on need basis -->
+        <RollingFile name="frameworkLog" fileName="target/logger/app-framework.log"
+                     filePattern="target/logger/app-framework-%d{yyyy-MM-dd}-%i.log">
+            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="debugLog" fileName="target/logger/app-debug.log"
+                     filePattern="target/logger/app-debug-%d{yyyy-MM-dd}-%i.log">
+            <LevelRangeFilter minLevel="DEBUG" maxLevel="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="infoLog" fileName="target/logger/app-info.log"
+                     filePattern="target/logger/app-info-%d{yyyy-MM-dd}-%i.log" >
+            <LevelRangeFilter minLevel="INFO" maxLevel="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="errorLog" fileName="target/logger/app-error.log"
+                     filePattern="target/logger/app-error-%d{yyyy-MM-dd}-%i.log" >
+            <LevelRangeFilter minLevel="ERROR" maxLevel="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+
+        <RollingFile name="perfLog" fileName="target/logger/app-perf.log"
+                     filePattern="target/logger/app-perf-%d{yyyy-MM-dd}-%i.log" >
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="1"/>
+        </RollingFile>
+
+        <RollingFile name="traceLog" fileName="target/logger/app-trace.log"
+                     filePattern="target/logger/app-trace-%d{yyyy-MM-dd}-%i.log" >
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="19500KB" />
+            </Policies>
+            <DefaultRolloverStrategy max="1"/>
+        </RollingFile>
+
+        <ReportPortalLog4j2Appender name="ReportPortalLog4j2Appender">
+            <PatternLayout pattern="${LOG_PATTERN}"/>
+        </ReportPortalLog4j2Appender>
+
+    </Appenders>
+
+    <Loggers>
+
+        <Logger name="org.taf1" additivity="false" level="trace">
+            <AppenderRef ref="traceLog" />
+            <AppenderRef ref="Console" />
+        </Logger>
+
+        <Logger name="org.taf" additivity="false" level="debug">
+            <AppenderRef ref="debugLog" />
+            <AppenderRef ref="infoLog"  />
+            <AppenderRef ref="errorLog" />
+            <AppenderRef ref="Console"  />
+        </Logger>
+
+        <Logger name="org.taf3" additivity="false" level="info">
+            <AppenderRef ref="perfLog" />
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="debugLog"/>
+            <AppenderRef ref="ReportPortalLog4j2Appender"/>
+        </Root>
+
+    </Loggers>
+
+</Configuration>
